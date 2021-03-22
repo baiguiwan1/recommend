@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jugyang.recommend.dao.ExpertMapper">
+    <resultMap id="BaseResultMap" type="com.jugyang.recommend.entity.Expert">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="exName" jdbcType="VARCHAR" property="exName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="researchFields" jdbcType="VARCHAR" property="researchFields"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, exName, password, researchFields
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Expert
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+<!--    <insert id="insert1" useGeneratedKeys="true" keyProperty="id" parameterType="com.jugyang.recommend.entity.Expert">-->
+<!--        insert into Expert(exName,password,researchFields)-->
+<!--        values ( #{exName}, #{password},#{researchFields})-->
+<!--    </insert>-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.jugyang.recommend.entity.Expert">
+        insert into Expert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--            <if test="id != null">-->
+            <!--                id,-->
+            <!--            </if>-->
+            <if test="exName != null">
+                exName,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="researchFields != null">
+                researchFields,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <!--            <if test="id != null">-->
+            <!--                #{id,jdbcType=INTEGER},-->
+            <!--            </if>-->
+            <if test="exName != null">
+                #{exName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="researchFields != null">
+                #{researchFields,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+    <select id="countByExName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        count(1)
+        from Expert
+        where exName = #{exName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByExName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from Expert
+        where exName = #{exName,jdbcType=VARCHAR}
+    </select>
+</mapper>

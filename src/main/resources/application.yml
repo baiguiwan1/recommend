@@ -1,0 +1,32 @@
+server:
+  port: 8085
+#  servlet:
+#    context-path: /recommend
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demand?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+  freemarker:
+    cache: false
+    charset: utf-8
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+    content-type: text/html
+  mvc:
+    servlet:
+      load-on-startup: 100
+#    static-path-pattern: /static/**
+  mybatis:
+    configuration:
+      #驼峰命名法使用使得数据库数据能在mapper中获取到
+      map-underscore-to-camel-case: true
+      # 控制台日志配置
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath:mappers/*.xml
